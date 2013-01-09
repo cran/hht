@@ -1,0 +1,14 @@
+citHeader("To cite package 'hht' in publications use:")
+year <- "2012"
+vers <- version$version.string 
+citEntry(entry="Manual",
+title = "The Hilbert-Huang Transform: Tools and Methods",
+author = personList(as.person("Daniel Bowman")),
+year = year,
+note = vers,
+textVersion =
+paste("Daniel Bowman (",
+year,
+"). The Hilbert-Huang Transform: Tools and Methods ",
+vers, ".", sep=""))
+
