@@ -1,0 +1,6 @@
+NEWS for rNOMADS
+
+2.0-2
+The EEMD function now uses a Gaussian noise time series by default.
+Originally it used a uniform random noise distribution.
+This original functionality is still available by setting noise.type = "gaussian."

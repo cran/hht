@@ -211,7 +211,7 @@ HHRender <- function(hres, dt, dfreq, time.span = NULL, freq.span = NULL, scalin
         for(i in seq(hres$nimf))
         {
             x = array(c(rep(hgram$tt,hres$trials), hres$hinstfreq[,i,]), dim = c(length(hgram$tt)*hres$trials, 2))
-            imf.img = as.image(hres$hamp[,i,], grid = grid, x = x)
+            imf.img = fields::as.image(hres$hamp[,i,], grid = grid, x = x)
             imf.img$z[is.na(imf.img$z)] = 0
             imf.img$weights[is.na(imf.img$weights)] = 0
             if(combine.imfs)
@@ -775,6 +775,8 @@ HHTPackagePlotter <- function(img, trace, amp.span, img.x.lab, img.y.lab, fit.li
     #        OPTS$CEX.TRACE is the font size of the trace axis labels
     #        OPTS$TRACE.COL is the color of the trace
     #        OPTS$IMF.SUM.COL is the color of the IMF sums (if shown)
+    #        OPTS$PRETTY.X.N is the number of pretty divisions on the X axis
+    #        OPTS$PRETTY.Y.N is the number of pretty divisions on the Y axis
 
     #Configure parameters
     
@@ -828,12 +830,23 @@ HHTPackagePlotter <- function(img, trace, amp.span, img.x.lab, img.y.lab, fit.li
         opts$trace.col = "black"
     }
 
+    if(!"pretty.x.n" %in% names(opts))
+    {
+        opts$pretty.x.n = 10
+    }
+
+    if(!"pretty.y.n" %in% names(opts))
+    {
+        opts$pretty.y.n = 5
+    }
+
+
     if(pretty)
     {   #Get nice divisions
-        pretty.x = pretty(img$x, n=10)
-        pretty.y = pretty(img$y, n=5) 
-        pretty.x = pretty.x[pretty.x <= max(img$x) & pretty.x >= min(img$x)]
-        pretty.y = pretty.y[pretty.y <= max(img$y) & pretty.y >= min(img$y)]
+        pretty.x = pretty(img$x, n=opts$pretty.x.n)
+        pretty.y = pretty(img$y, n=opts$pretty.y.n) 
+        #pretty.x = pretty.x[pretty.x <= max(img$x) & pretty.x >= min(img$x)]
+        #pretty.y = pretty.y[pretty.y <= max(img$y) & pretty.y >= min(img$y)]
         if(!is.null(window))
         {
              window = window * ((max(img$x) - min(img$x))/(max(pretty.x) - min(pretty.x)))

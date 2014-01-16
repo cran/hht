@@ -1,5 +1,5 @@
 citHeader("To cite package 'hht' in publications use:")
-year <- "2013"
+year <- "2014"
 vers <- version$version.string 
 citEntry(entry="Manual",
 title = "The Hilbert-Huang Transform: Tools and Methods",
