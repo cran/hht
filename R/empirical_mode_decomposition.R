@@ -191,8 +191,8 @@ EEMDCompile<-function(trials.dir, trials, nimf)
 		        averaged.imfs=array(0,nimf*siglen,dim=c(siglen,nimf))
         		averaged.noise=array(0,siglen,dim=c(siglen,1))
         		averaged.residue=array(0,siglen,dim=c(siglen,1))
-			hinstfreq=array(rep(0,length(emd.result$original.signal)*nimf*trials),dim=c(length(emd.result$original.signal),nimf,trials))
-			hamp=array(rep(0,length(emd.result$original.signal)*nimf*trials),dim=c(length(emd.result$original.signal),nimf,trials))
+			hinstfreq=array(0,dim=c(length(emd.result$original.signal),nimf,trials))
+			hamp=array(0,dim=c(length(emd.result$original.signal),nimf,trials))
                 }
                 if(emd.result$nimf>=nimf)
                 {
@@ -407,7 +407,7 @@ Sig2IMF <- function(sig, tt, spectral.method = "arctan", diff.lag = 1, stop.rule
     emd.result$max.imf = max.imf
     emd.result$interm = interm
   
-    emd.result$hinstfreq = array(rep(0, length(emd.result$original.signal) * emd.result$nimf), dim = c(length(emd.result$original.signal), emd.result$nimf))
+    emd.result$hinstfreq = array(0, dim = c(length(emd.result$original.signal), emd.result$nimf))
     emd.result$hamp = emd.result$hinstfreq
     
     for(i in seq(emd.result$nimf))

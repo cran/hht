@@ -78,7 +78,7 @@ FTGramImage <- function(sig, dt, ft, time.span = NULL, freq.span = NULL, amp.spa
         }
         img.xvec = ev$x + time.span[1]
         img.yvec = seq(freq.span[1], freq.span[2], by = ev$y[2] - ev$y[1])
-        img = list(z = array(rep(0, length(img.xvec) * length(img.yvec)), dim = c(length(img.xvec), length(img.yvec))),
+        img = list(z = array(0, dim = c(length(img.xvec), length(img.yvec))),
               x = img.xvec, y = img.yvec)
         img$z[,img.yvec >= min(ev$y) & img.yvec <= max(ev$y)] = ev$z[,ev$y >= freq.span[1] & ev$y <= freq.span[2]]
         img$z[img$z<amp.span[1]] = NA
@@ -206,7 +206,7 @@ HHRender <- function(hres, dt, dfreq, time.span = NULL, freq.span = NULL, scalin
         else{
             imf.dim = hres$nimf
         }
-        hgram$z=array(rep(0,(length(grid$x) * length(grid$y) * imf.dim)),dim=c(length(grid$x),length(grid$y), imf.dim))
+        hgram$z=array(0,dim=c(length(grid$x),length(grid$y), imf.dim))
         hgram$cluster=hgram$z #Shows how many times a given grid node has data.
         for(i in seq(hres$nimf))
         {
@@ -264,7 +264,7 @@ HHSpectrum <- function(hres, dfreq, freq.span = NULL, time.span = NULL, scaling 
 
    hgram = HHRender(hres, dt, dfreq, freq.span = freq.span, time.span = time.span, scaling = scaling, combine.imfs = FALSE, verbose = TRUE)
 
-   amps = array(rep(0, dim(hgram$z)[2] * dim(hgram$z)[3]), dim = dim(hgram$z)[2:3])
+   amps = array(0, dim = dim(hgram$z)[2:3])
 
    for(i in seq(hres$nimf))
    {

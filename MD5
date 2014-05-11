@@ -1,10 +1,10 @@
-e18e6b315d8e26ddad3e0f7f4b1b69a0 *DESCRIPTION
+3a9f75515c997bd69b57ca72170fbfc7 *DESCRIPTION
 d32239bcb673463ab874e80d47fae504 *GPL-3
 8b54e5a89fbda3af5e077053d40bec76 *NAMESPACE
-35c4f3891e79940efa1723c9bd09d574 *NEWS
-34a1f91418cc5c453d252cca35429011 *R/empirical_mode_decomposition.R
-c97d1bd5ba3be30ff343aa0818d17d46 *R/rendering_and_plotting.R
-ac961426e73568f53236d2b2ec9f55b9 *R/spectral_methods.R
+3a4bf4ed2744a7af442bf17ee2df07dd *NEWS
+9a65a396be5f9309465d5111f3af0b37 *R/empirical_mode_decomposition.R
+86573c1122e10a20cec3706e6ddfbfe1 *R/rendering_and_plotting.R
+3ba3049d509a7b8e8e2ed757ffabc2c8 *R/spectral_methods.R
 d77ba98a7236265b2c71a18f3778e32e *data/PortFosterEvent.RData
 4b5d9c3547fd7b0099d7e1c11fd605b0 *data/datalist
 9386f13f89ce5e17d88ddde488627e61 *inst/CITATION

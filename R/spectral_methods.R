@@ -60,7 +60,7 @@ EvolutiveFFT <- function(sig, dt, ft, freq.span, taper = 0.05)
         return(NULL)
       }
 
-    DMAT = matrix(rep(0,krow*kcol), ncol=kcol, nrow=krow)
+    DMAT = matrix(0, ncol=kcol, nrow=krow)
 
     m = 1:(kcol)
     ibeg=((m-1)*skiplen)+1;
@@ -190,7 +190,7 @@ PrecisionTester <- function(tt = seq(0, 10, by = 0.01), method = "arctan", lag =
     #1.  An exact analytic expression calulated for signals of this form using Equation 6 in 
     #Dasios, A.; Astin, T. R. & McCann, C. Compressional-wave Q estimation from full-waveform sonic data 
     #Geophysical Prospecting, 2001, 49, 353-373.
-    #An exact expression can be derived through the liberal use of algebra and trigonometric identities, see http://www.unc.edu/~haksaeng/hht/analytic.instantaneous.freq.pdf
+    #An exact expression can be derived through the liberal use of algebra and trigonometric identities, see http://www.unc.edu/~haksaeng/hht/analytic_instantaneous_freq.pdf
 
     #2.  Using the numeric method presented in this R package (i.e. the functions HilbertTransform and InstantaneousFrequency)
     
