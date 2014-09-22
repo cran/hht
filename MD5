@@ -1,13 +1,13 @@
-704f32546f14b362cc259feb9d800a1f *DESCRIPTION
+7450e6b2e6a7be1892490c7632d9cd5b *DESCRIPTION
 d32239bcb673463ab874e80d47fae504 *GPL-3
 8b54e5a89fbda3af5e077053d40bec76 *NAMESPACE
-0b05c17e3a085e073828622df9d65d14 *NEWS
+ffcb66a18118e34ffa3ca9a0bb0007c4 *NEWS
 37c113ec578ec8c32f66d51f12c7fa5d *R/empirical_mode_decomposition.R
-fedfe3b09a70eb27a4494fef42433103 *R/rendering_and_plotting.R
+a6bbd04cfce9988f311fd831b701751c *R/rendering_and_plotting.R
 3ba3049d509a7b8e8e2ed757ffabc2c8 *R/spectral_methods.R
 d77ba98a7236265b2c71a18f3778e32e *data/PortFosterEvent.RData
 4b5d9c3547fd7b0099d7e1c11fd605b0 *data/datalist
-9386f13f89ce5e17d88ddde488627e61 *inst/CITATION
+ac26391e49a6ae31d3f32a8b4ada91db *inst/CITATION
 08760acb17f22dc51bbe6472983b608d *man/CEEMD.Rd
 1ec6b7015dcd99432a45ea621b0ae93b *man/CombineTrials.Rd
 021e93af774e2ccfd1f86ef8afd11294 *man/EEMD.Rd

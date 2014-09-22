@@ -1,7 +1,7 @@
 Package: hht
 Type: Package
 Title: The Hilbert-Huang Transform: Tools and Methods
-Version: 2.1.1
+Version: 2.1.2
 Date: 2014-09-22
 Authors@R: c(person(given="Daniel C.",family="Bowman", role=c("aut", "cre"),
         email="daniel.bowman@unc.edu"),
@@ -14,10 +14,10 @@ URL: https://code.google.com/p/r-hht/
         http://www.unc.edu/~haksaeng/hht/analytic_instantaneous_freq.pdf
         http://www.unc.edu/~haksaeng/hht/interesting_signals.pdf
         http://www.unc.edu/~haksaeng/hht/eemd_examples.pdf
-Packaged: 2014-10-28 14:47:52 UTC; bowman
+Packaged: 2015-01-21 15:09:55 UTC; dantayaga
 Maintainer: Daniel C. Bowman <daniel.bowman@unc.edu>
 Author: Daniel C. Bowman [aut, cre],
   Jonathan M. Lees [ctb]
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2014-10-28 17:35:30
+Date/Publication: 2015-01-21 17:26:13

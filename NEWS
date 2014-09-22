@@ -10,3 +10,6 @@ Fixed a bug that threw errors with large arrays were initialized.
 
 2.1.1 
 Added the Complete Ensemble Empirical Mode Decomposition (CEEMD) algorithm
+
+2.1.2
+Added appropriate citation

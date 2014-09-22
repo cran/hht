@@ -1071,7 +1071,7 @@ PlotIMFs <-function(sig, time.span = NULL, imf.list = NULL, original.signal = TR
     }
     else
     {
-        scale=max(abs(sig$imf))
+        scale=max(abs(sig$imf[time.ind,imf.list]))
     }
     
     if(residue)
