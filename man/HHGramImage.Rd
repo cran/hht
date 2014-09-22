@@ -4,7 +4,7 @@
 \description{This function displays the Hilbert spectrogram of EMD and EEMD results.}
 \usage{
 HHGramImage(hgram, time.span = NULL, freq.span = NULL, amp.span = NULL, 
-    clustergram = FALSE, cluster.span = NULL, imf.list = NULL, 
+    blur = NULL, clustergram = FALSE, cluster.span = NULL, imf.list = NULL, 
     fit.line = FALSE, scaling = "none", grid = TRUE, colorbar = TRUE, 
     backcol = c(0, 0, 0), colormap = NULL, pretty = FALSE, ...)
 }
@@ -13,6 +13,11 @@ HHGramImage(hgram, time.span = NULL, freq.span = NULL, amp.span = NULL,
 \item{time.span}{Time span to render spectrogram over.  \code{NULL} will draw the spectrogram over the entire signal.}
 \item{freq.span}{Frequency span to render spectrogram over.  \code{NULL} plots everything up to the max frequency set when \code{\link{HHRender}} was run.}
 \item{amp.span}{This is the amplitude span to plot, everything below is set to \code{backcol}, everything above is set to max color, \code{NULL} scales to the range in the signal.}
+\item{blur}{Apply a Gaussian smoother.  Default \code{NULL} - no smoothing}.
+\itemize{
+    \item{\code{blur$sigma} is a scalar or two-element vector giving the standard deviation of the Gaussian kernel.}
+    \item{\code{blur$bleed} determines whether to allow values to bleed out of the domain of the image.  Default \code{TRUE}} 
+}
 \item{clustergram}{If \code{TRUE}, plot the number of times data occupies a given pixel instead of plotting the signal amplitude.
 This is akin to the \code{weight} component returned by the \code{as.image} function in the \code{fields} package.
 Only applies when using EEMD.

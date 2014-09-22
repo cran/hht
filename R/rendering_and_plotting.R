@@ -1,6 +1,6 @@
 # Plotting and data analysis functions
 
-FTGramImage <- function(sig, dt, ft, time.span = NULL, freq.span = NULL, amp.span = NULL, taper = 0.05, scaling = "none", grid=TRUE, colorbar=TRUE, backcol=c(0, 0, 0), colormap=NULL, pretty=FALSE, ...)
+FTGramImage <- function(sig, dt, ft, time.span = NULL, freq.span = NULL, amp.span = NULL, blur = NULL, taper = 0.05, scaling = "none", grid=TRUE, colorbar=TRUE, backcol=c(0, 0, 0), colormap=NULL, pretty=FALSE, ...)
 {
 	#Plots a Fourier spectrogram
 	#INPUTS
@@ -13,6 +13,9 @@ FTGramImage <- function(sig, dt, ft, time.span = NULL, freq.span = NULL, amp.spa
         #    TIME.SPAN is the time span to plot, NULL plots everything
         #    FREQ.SPAN is the frequency span to plot (<=max frequency in spectrogram), NULL plots everything up to the Nyquist frequency
 	#    AMP.SPAN is the amplitude range to plot.  NULL plots everything.
+        #    BLUR is a list of parameters for a Gaussian image smoothing kernel, if desired.  If not null then
+        #        BLUR$SIGMA - Standard deviation of Gaussian kernel.  If a 2 element vector, then the kernel has independent coordinate
+        #        BLUR$BLEED - Whether to allow blur to bleed out of the domain of the image 
         #    TAPER is the cosine taper factor (amount of the signal to apply the taper to, must be < 0.5)
         #    SCALING determines whether to apply a logarithmic (log), or square root (sqrt) scaling to the amplitude data
         #    GRID is a boolean asking whether to display grid lines
@@ -81,23 +84,25 @@ FTGramImage <- function(sig, dt, ft, time.span = NULL, freq.span = NULL, amp.spa
         img = list(z = array(0, dim = c(length(img.xvec), length(img.yvec))),
               x = img.xvec, y = img.yvec)
         img$z[,img.yvec >= min(ev$y) & img.yvec <= max(ev$y)] = ev$z[,ev$y >= freq.span[1] & ev$y <= freq.span[2]]
-        img$z[img$z<amp.span[1]] = NA
-        img$z[img$z>amp.span[2]] = amp.span[2]
-        img$z[img$z == 0] = NA
 
         if(scaling == "ln") #Scale by natural log
         {
+            img$z[img$z == 0] = NA
             img$z = log(img$z)
+            amp.span <- log(amp.span)
         }
 
         if(scaling == "log") #Log 10 scale
         {
+            img$z[img$z == 0] = NA
             img$z = log10(img$z)
+            amp.span <- log10(amp.span)
         }
 
         if(scaling == "sqrt") #Take the square root
         {
             img$z = sqrt(img$z)
+            amp.span <- sqrt(amp.span)
         }
 
         trace = list()
@@ -105,7 +110,7 @@ FTGramImage <- function(sig, dt, ft, time.span = NULL, freq.span = NULL, amp.spa
         trace$tt = ev$tt[ev$tt >= time.span[1] & ev$tt <= time.span[2]]
        
         window = ft$ns / (length(tt[tt >= min(img$x) & tt <= max(img$x)]))
-        HHTPackagePlotter(img, trace, amp.span, opts$img.x.lab, opts$img.y.lab, window = window, colormap = colormap, backcol = backcol, pretty = pretty, grid = grid, colorbar = colorbar, opts = opts)
+        HHTPackagePlotter(img, trace, amp.span, blur = blur, opts$img.x.lab, opts$img.y.lab, window = window, colormap = colormap, backcol = backcol, pretty = pretty, grid = grid, colorbar = colorbar, opts = opts)
  
         invisible(img)
 
@@ -275,7 +280,7 @@ HHSpectrum <- function(hres, dfreq, freq.span = NULL, time.span = NULL, scaling 
   invisible(hspec)
 } 
 
-HHGramImage <- function(hgram,time.span = NULL,freq.span = NULL, amp.span = NULL, clustergram = FALSE, cluster.span=NULL, imf.list = NULL, fit.line = FALSE, scaling = "none", grid=TRUE, colorbar=TRUE, backcol=c(0, 0, 0), colormap=NULL, pretty=FALSE, ...)
+HHGramImage <- function(hgram,time.span = NULL,freq.span = NULL, amp.span = NULL, blur = NULL, clustergram = FALSE, cluster.span=NULL, imf.list = NULL, fit.line = FALSE, scaling = "none", grid=TRUE, colorbar=TRUE, backcol=c(0, 0, 0), colormap=NULL, pretty=FALSE, ...)
 {
 	#Plots a spectrogram of the EEMD processed signal as an image.	
 	#INPUTS
@@ -291,6 +296,10 @@ HHGramImage <- function(hgram,time.span = NULL,freq.span = NULL, amp.span = NULL
 	#	TIME.SPAN is the time span to plot, NULL plots everything
 	#	FREQ.SPAN is the frequency span to plot (<=max frequency in spectrogram), NULL plots everything
 	#	AMP.SPAN is the amplitude span to plot, everything below is set to black, everything above is set to max color, NULL scales to range in signal
+        #       BLUR is a list of parameters for a Gaussian image smoothing kernel, if desired.  If not null then
+        #           BLUR$SIGMA - Standard deviation of Gaussian kernel.  If a 2 element vector, then the kernel has independent coordinate
+        #           BLUR$BLEED - Whether to allow blur to bleed out of the domain of the image 
+
         #	CLUSTERGRAM tells the code to plot the signal amplitude (FALSE) or the number of times data occupies a given pixel (TRUE).
 	#	CLUSTER.SPAN plots only the parts of the signal that have a certain number of data points per pixel [AT LEAST, AT MOST] this only applies to EEMD with multiple trials.
         #       IMF.LIST is a list of IMFs to plot on the spectrogram.  If NULL, plot all IMFs.
@@ -445,16 +454,11 @@ HHGramImage <- function(hgram,time.span = NULL,freq.span = NULL, amp.span = NULL
             amp.span = sqrt(amp.span)
         }
 
- 
-        img$z[img$z<amp.span[1]] = NA
-        img$z[img$z>amp.span[2]] = amp.span[2]
-        img$z[img$z == 0] = NA
-        
         trace = list()
         trace$sig = hgram$original.signal[hgram$tt >= time.span[1] & hgram$tt <= time.span[2]]
         trace$tt = hgram$tt[hgram$tt >= time.span[1] & hgram$tt <= time.span[2]]
 
-        HHTPackagePlotter(img, trace, amp.span, opts$img.x.lab, opts$img.y.lab, fit.line = fit.line, colormap = colormap, backcol = backcol, pretty = pretty, grid = grid, colorbar = colorbar, opts = opts)
+        HHTPackagePlotter(img, trace, amp.span, opts$img.x.lab, opts$img.y.lab, blur = blur, fit.line = fit.line, colormap = colormap, backcol = backcol, pretty = pretty, grid = grid, colorbar = colorbar, opts = opts)
     
         invisible(img)
 }
@@ -739,7 +743,7 @@ HHSpecPlot <- function(hspec, freq.span = NULL, scaling = "none", imf.list = NUL
 
 
 
-HHTPackagePlotter <- function(img, trace, amp.span, img.x.lab, img.y.lab, fit.line = NULL, window = NULL, colormap = NULL, backcol = c(0, 0, 0), pretty = FALSE, grid = TRUE, colorbar = TRUE, opts = list())
+HHTPackagePlotter <- function(img, trace, amp.span, img.x.lab, img.y.lab, blur = NULL, fit.line = NULL, window = NULL, colormap = NULL, backcol = c(0, 0, 0), pretty = FALSE, grid = TRUE, colorbar = TRUE, opts = list())
 {
     #Plots images and time series for Hilbert spectra, Fourier spectra, and cluster analysis.
     #This function is internal to the package and users should not be calling it.
@@ -755,6 +759,9 @@ HHTPackagePlotter <- function(img, trace, amp.span, img.x.lab, img.y.lab, fit.li
     #    AMP.SPAN are the maximum and minimum values of the image.
     #    IMG.X.LAB is the label of the X axis of the image
     #    IMG.Y.LAB is the label of the Y axis of the image
+    #    BLUR is a list of parameters for a Gaussian image smoothing kernel, if desired.  If not null then
+    #        BLUR$SIGMA - Standard deviation of Gaussian kernel.  If a 2 element vector, then the kernel has independent coordinate
+    #        BLUR$BLEED - Whether to allow blur to bleed out of the domain of the image 
     #    IMF.SUM is a red line on the time series plot showing the sum of the plotted IMFs, if available
     #        IMF.SUM$SIG is the summed IMFS
     #        IMF.SUM$TT is the time of each sample.  We assume all IMFS have equivalent timing.
@@ -895,7 +902,7 @@ HHTPackagePlotter <- function(img, trace, amp.span, img.x.lab, img.y.lab, fit.li
     rect(trace.x, trace.y, trace.x+trace.xspan, trace.y+trace.yspan)
 
     #Plot IMAGE
-    
+
     image.y=0
     image.x=0
     image.yspan=0.75
@@ -907,7 +914,30 @@ HHTPackagePlotter <- function(img, trace, amp.span, img.x.lab, img.y.lab, fit.li
     img.x.at=seq(image.x,image.x+image.xspan,length.out=length(img.x.labels))
     img.y.at=seq(image.y,image.y+image.yspan, length.out=length(img.y.labels))
     rect(image.x,image.y,image.x+image.xspan,image.y+image.yspan,col=rgb(red=backcol[1], green=backcol[2], blue=backcol[3], maxColorValue=255))
-    image(image.xvec,image.yvec, img$z, zlim = amp.span, col=colormap,add=TRUE)
+
+    #Add blur, if requested   
+    if(!is.null(blur)) {
+        if(!"sigma" %in% names(blur)) {
+            stop("Please provide a standard deviation value when using the \"blur\" option.")
+        } else {
+            if("bleed" %in% names(blur)) {
+                bleed <- blur$bleed
+            } else {
+                bleed <- TRUE
+            }
+        }
+        tmp.im <- spatstat::as.im(list(x = image.xvec, y = image.yvec, z = as.matrix(img$z)))
+        z <- t(spatstat::blur(tmp.im, sigma = blur$sigma, bleed = bleed)$v)
+    } else {
+        z <- img$z
+    }
+
+    z[z<amp.span[1]] = NA
+    z[z>amp.span[2]] = amp.span[2]
+    z[z == 0]        = NA
+
+
+    image(image.xvec,image.yvec, z, zlim = amp.span, col=colormap,add=TRUE)
     axis(2, pos=image.x, at=img.y.at,labels=img.y.labels, cex.axis=opts$cex.lab)
     axis(1,pos=image.y, at=img.x.at,labels=img.x.labels, cex.axis=opts$cex.lab)
 
@@ -993,6 +1023,15 @@ PlotIMFs <-function(sig, time.span = NULL, imf.list = NULL, original.signal = TR
     #    CEX is the size of text (for plotting figures)
     #    ... other parameters to pass to main plotting function
    
+    opts <- list(...)
+
+    if(!"xlab" %in% names(opts)) {
+        opts$xlab <- "Time (s)"
+    }
+
+    if(!"ylab" %in% names(opts)) {
+        opts$ylab <- ""
+    }
  
     if(is.null(time.span))
     {
@@ -1018,7 +1057,7 @@ PlotIMFs <-function(sig, time.span = NULL, imf.list = NULL, original.signal = TR
     time.ind = which(sig$tt >= time.span[1] & sig$tt <= time.span[2])
     tt = sig$tt[time.ind]
     
-    plot(c(0, 1), c(0, 1), type="n", axes=FALSE, xlab="Time (s)", ylab="", cex.lab=cex, ...)
+    plot(c(0, 1), c(0, 1), type="n", axes=FALSE, xlab=opts$xlab, ylab=opts$ylab, cex.lab=cex)
     
     yax.labs=c()
     snum=length(imf.list)+residue+original.signal

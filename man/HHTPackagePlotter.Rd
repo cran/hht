@@ -9,9 +9,9 @@ This is an internal function and will likely never be called by a user
 }
 
 \usage{
-HHTPackagePlotter(img, trace, amp.span, img.x.lab, img.y.lab, fit.line = NULL, 
-window = NULL, colormap = NULL, backcol = c(0, 0, 0), pretty = FALSE, 
-grid = TRUE, colorbar = TRUE, opts = list())
+HHTPackagePlotter(img, trace, amp.span, img.x.lab, img.y.lab, blur = NULL, 
+fit.line = NULL, window = NULL, colormap = NULL, backcol = c(0, 0, 0), 
+pretty = FALSE, grid = TRUE, colorbar = TRUE, opts = list())
 }
 \arguments{
   \item{img}{
@@ -23,6 +23,11 @@ grid = TRUE, colorbar = TRUE, opts = list())
 
   \item{amp.span}{
   Amplitudes over which to plot.
+}
+  \item{blur}{Apply a Gaussian smoother.  Default \code{NULL} - no smoothing}.
+  \itemize{
+    \item{\code{blur$sigma} is a scalar or two-element vector giving the standard deviation of the Gaussian kernel.}
+    \item{\code{blur$bleed} determines hether to allow values to bleed out of the domain of the image.  Default \code{TRUE}} 
 }
   \item{img.x.lab}{
   Specifies the X axis label on the image part of the figure, defaults to "time"

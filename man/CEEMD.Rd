@@ -1,6 +1,6 @@
 \name{CEEMD}
 \alias{CEEMD}
-\title{Ensemble Empirical Mode Decomposition}
+\title{Complete Ensemble Empirical Mode Decomposition}
 \description{
 This function implements the complete ensemble empirical mode decomposition (CEEMD) algorithm.
 }

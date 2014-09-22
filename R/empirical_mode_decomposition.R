@@ -564,12 +564,16 @@ Sig2IMF <- function(sig, tt, spectral.method = "arctan", diff.lag = 1, stop.rule
     emd.result$hinstfreq = array(0, dim = c(length(emd.result$original.signal), emd.result$nimf))
     emd.result$hamp = emd.result$hinstfreq
     
-    for(i in seq(emd.result$nimf))
-    {
-        imf = emd.result$imf[,i]
-        aimf = HilbertTransform(imf)
-        emd.result$hinstfreq[, i] = InstantaneousFrequency(aimf, tt, method = spectral.method, lag = diff.lag)
-        emd.result$hamp[, i] = HilbertEnvelope(aimf)
+    if(emd.result$nimf > 0) {    
+        for(i in seq(emd.result$nimf))
+        {
+            imf = emd.result$imf[,i]
+            aimf = HilbertTransform(imf)
+            emd.result$hinstfreq[, i] = InstantaneousFrequency(aimf, tt, method = spectral.method, lag = diff.lag)
+            emd.result$hamp[, i] = HilbertEnvelope(aimf)
+        }
+    } else {
+        warning("Sig2IMF says:  No IMFs were extracted, possibly because the signal lacks extrema.")
     }
     invisible(emd.result)
 }
