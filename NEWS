@@ -7,3 +7,6 @@ This original functionality is still available by setting noise.type = "uniform.
 
 2.0-2
 Fixed a bug that threw errors with large arrays were initialized.
+
+2.1.1 
+Added the Complete Ensemble Empirical Mode Decomposition (CEEMD) algorithm

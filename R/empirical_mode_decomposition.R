@@ -1,6 +1,160 @@
 ## THIS COLLECTION OF FUNCTIONS IMPLEMENTS EMD VIA THE "EMD" PACKAGE
 ##AND ALSO RUNS THE ENSEMBLE EMD METHOD
+##AND COMPLETE ENSEMBLE EMD METHOD
 
+CEEMD <- function(sig, tt, noise.amp, trials, verbose = TRUE, spectral.method = "arctan", diff.lag = 1, tol = 5, max.sift = 200, stop.rule = "type5", boundary = "wave", sm = "none", smlevels = c(1), spar = NULL, max.imf = 100, interm = NULL, noise.type = "gaussian", noise.array = NULL)
+{
+        #Performs the Complete Ensemble Empirical Mode Decomposition as described in Torres et al (2011) A Complete Empirical Mode Decomposition with Adaptive Noise 
+        #It runs EMD on a given signal for N=TRIALS
+        #Each IMF set is saved to disk in TRIALS.DIR, which is created if it does not exist already.
+        #Finally the EEMD function averages IMFs from all the trials together to produce an ensemble average and saves it in TRIALS.DIR 
+        #INPUTS
+        #   SIG is the time series
+        #   TT is the sample times 
+        #   NOISE.AMP is the amplitude of the noise distribution (upper/lower cutoff if uniform, standard deviation if gaussian, ignored otherwise)
+        #   TRIALS is the number of times to run EMD
+        #   VERBOSE - if TRUE, print progress
+        #   SPECTRAL.METHOD defines how to calculate instantaneous frequency - whether to use the arctangent of the analytic signal with numeric differentiation ("arctan")  
+        #   or the result of the chain rule applied to the arctangent, then numerically differentiated ("chain"); chain is dangerous at high frequencies
+        #   DIFF.LAG specifies if you want to do naive differentiation (DIFF.LAG = 1), central difference method (DIFF.LAG = 2) or higher difference methods (DIFF.LAG > 2)
+        #   MAX.SIFT stop sifting after this many times
+        #   STOP.RULE as quoted from the EMD package:  "stopping rule of sifting. The type1 stopping rule indicates that absolute values 
+        #   of envelope mean must be less than the user-specified tolerance level in the sense
+        #   that the local average of upper and lower envelope is zero. The stopping rules
+        #   type2, type3, type4 and type5 are the stopping rules given by equation (5.5)
+        #   of Huang et al. (1998), equation (11a), equation (11b) and S stoppage of Huang
+        #   and Wu (2008), respectively."
+        #   BOUNDARY - how the beginning and end of the signal are handled
+        #   SM - Specifies how the signal envelope is constructed, see Kim et al, 2012.
+        #   SMLEVELS - Specifies what level of the IMF is obtained by smoothing other than interpolation - not sure what this means
+        #   SPAR - User-defined smoothing parameter for spline, kernal, or local polynomial smoothign
+        #   MAX.IMF - How many IMFs are allowed, IMFs above this number will not be recorded
+        #   INTERM - specifies vector of periods to be excluded from IMFs to cope with mode mixing.  I do not use this; instead I use the EEMD method.
+        #   NOISE.TYPE - zero mean gaussian with standard deviation NOISE.AMP (if "gaussian" or unspecified), or "uniform" (absolute maximum/minimum amplitude), or "custom" (user defined noise matrix, expects NOISE.MATRIX)
+        #   NOISE.ARRAY - A TRIALS x LENGTH(TT) matrix of user-defined noise to use in place of gaussian or uniform noise.  NOISE.TYPE must be set to "custom" for this input to be used.
+     
+    if(!(noise.type  %in% c("uniform", "gaussian", "custom"))) {
+        stop(paste("Did not recognise noise.type option", noise.type,  "Please choose either ''uniform'' or ''gaussian''"))
+    }
+
+    if(noise.type == "custom") {
+        if(!is.null(noise.array)) {
+            if((dim(noise.array)[1] != trials) | dim(noise.array)[2] != length(tt)) {
+                stop("You requested a custom noise array but either the number of rows did not equal the number of CEEMD trials or the number of columns did not equal the signal length, or both.")
+            }
+        } else {
+            stop("If noise.type = \"custom\", then you must set noise.array equal to an array with the same number of rows as CEEMD trials and the same number of columns as signal samples.")
+        }
+     }
+
+     #Make noise matrix and extract IMF 1
+    if(noise.type == "uniform") {
+        noise <- t(array(noise.amp * runif(length(sig) * trials), dim = c(length(sig), trials)))
+        noise <- noise - mean(noise)
+    } else if (noise.type == "gaussian") {
+        noise <- t(array(noise.amp * rnorm(length(sig) * trials), dim = c(length(sig), trials)))
+    } else if (noise.type == "custom") {
+       noise <- noise.array
+    }
+     
+     if(verbose) {
+         print("Extracting IMF 1 from each noise/signal realization...")
+     }
+
+     imfs <- rep(0, length(sig))
+     for(k in 1:trials) {
+         imfs <- imfs + Sig2IMF(sig + noise[k, ], tt, spectral.method = spectral.method, diff.lag = diff.lag,
+             tol = tol, max.sift = max.sift, stop.rule = stop.rule, boundary = boundary,
+             sm = sm, smlevels = smlevels, spar = spar, max.imf = 1, interm = interm)$imf[, 1]
+         if(verbose) {
+             print(paste0("Trial ", k, " complete."))
+         }
+     }
+     imfs <- imfs/trials
+
+     if(verbose) {
+         print("IMF 1 extracted.")
+     }
+
+     #Now decompose the noise into IMFs
+     noise.imfs <- NULL
+     if(verbose) {
+          print("Decomposing noise series...")
+     }
+
+     for(k in 1:trials) {
+         noise.imfs[[k]] <- Sig2IMF(noise[k, ], tt, spectral.method = spectral.method, diff.lag = diff.lag,
+             tol = tol, max.sift = max.sift, stop.rule = stop.rule, boundary = boundary,
+             sm = sm, smlevels = smlevels, spar = spar, max.imf = max.imf, interm = interm)$imf
+         if(verbose) {
+             print(paste0("Noise trial ", k, " complete."))
+         }
+     }
+ 
+     #Continue extracting IMFs until either the maximum limit of IMFs is reached or the signal no longer has oscillatory elements
+     r <- sig - imfs
+     n.i <- 1
+     noise.imf <- rep(0, length(sig))
+     escape <- FALSE
+     while(n.i < max.imf & EMD::extrema(r)$nextreme > 2) {
+         imf.avg <- rep(0, length(sig))
+         for(k in 1:trials) {
+             #Extract only the first IMF of the series
+             if(dim(noise.imfs[[k]])[2] < n.i ) {
+                 warning(paste0("Attempted to extract more IMFs from the signal than are present in the noise series for trial ", k, "."))
+                 noise.imf <- rep(0, length(sig))
+             } else {
+                 noise.imf <- noise.imfs[[k]][, n.i]
+             }
+             if(EMD::extrema(r + noise.imf)$nextreme > 2) {
+                 imf.avg <- imf.avg + Sig2IMF(r + noise.imf, tt, 
+                     spectral.method = spectral.method, diff.lag = diff.lag,
+                     tol = tol, max.sift = max.sift, stop.rule = stop.rule, boundary = boundary,
+                     sm = sm, smlevels = smlevels, spar = spar, max.imf = 1, interm = interm)$imf[, 1]
+             } else {
+                 imf.avg <- imf.avg + r + noise.imf
+             }
+             if(verbose) {
+                print(paste("IMF", n.i + 1, "TRIAL", k))
+             }
+        }
+        
+        imf.avg <- imf.avg/trials #Average the IMF trials together
+        imfs <- cbind(imfs, imf.avg)
+        r <- r - imf.avg
+        n.i <- n.i + 1
+   }
+
+   imfs.arr <- array(imfs, dim = c(length(sig), n.i))
+   ceemd.result <- NULL
+   ceemd.result$original.signal <- sig
+   ceemd.result$residue <- r
+   ceemd.result$tt <- tt
+   ceemd.result$max.sift <- max.sift
+   ceemd.result$tol <- tol
+   ceemd.result$stop.rule <- stop.rule
+   ceemd.result$boundary <- boundary
+   ceemd.result$sm <- sm
+   ceemd.result$smlevels <- smlevels
+   ceemd.result$spar <- spar
+   ceemd.result$max.imf <- max.imf
+   ceemd.result$interm <- interm
+
+   ceemd.result$hinstfreq <- array(0, dim = c(length(ceemd.result$original.signal), n.i))
+   ceemd.result$hamp <- ceemd.result$hinstfreq
+   ceemd.result$imf <- imfs.arr
+   ceemd.result$nimf <- n.i
+   for(i in 1:n.i)
+   {
+       imf = imfs.arr[,i]
+       aimf = HilbertTransform(imf)
+       ceemd.result$hinstfreq[, i] = InstantaneousFrequency(aimf, tt, method = spectral.method, lag = diff.lag)
+       ceemd.result$hamp[, i] = HilbertEnvelope(aimf)
+   }
+   invisible(ceemd.result)
+
+   
+} 
 CombineTrials <- function(in.dirs, out.dir, copy = TRUE)
 {
    #Moves trial files from different directories, numbers them sequentially, and puts them in the specified directory.

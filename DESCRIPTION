@@ -1,23 +1,23 @@
 Package: hht
 Type: Package
 Title: The Hilbert-Huang Transform: Tools and Methods
-Version: 2.0.2
-Date: 2014-05-11
+Version: 2.1.0
+Date: 2014-09-22
 Authors@R: c(person(given="Daniel C.",family="Bowman", role=c("aut", "cre"),
         email="daniel.bowman@unc.edu"),
         person(given="Jonathan M.", family="Lees", role=c("ctb")))
 Depends: R (>= 3.0.0)
 Imports: EMD (>= 1.5.5), fields (>= 6.7.6)
-Description: This package builds on the EMD package to provide additional tools for empirical mode decomposition (EMD) and Hilbert spectral analysis. It also implements the ensemble empirical decomposition (EEMD) method to avoid mode mixing and intermittency problems found in EMD analysis.  The package comes with several plotting methods that can be used to view intrinsic mode functions, the HHT spectrum, and the Fourier spectrum. To see the version history and download the bleeding-edge version (at your own risk!), see the project website at code.google.com below.  See the other links for PDF files describing numerical and exact analytical methods for determining instantaneous frequency, some examples of signals processed with this package, and some examples of the Ensemble Empirical Mode Decomposition method. 
+Description: This package builds on the EMD package to provide additional tools for empirical mode decomposition (EMD) and Hilbert spectral analysis. It also implements the ensemble empirical decomposition (EEMD) and the complete ensemble empirical mode decomposition (CEEMD) methods to avoid mode mixing and intermittency problems found in EMD analysis.  The package comes with several plotting methods that can be used to view intrinsic mode functions, the HHT spectrum, and the Fourier spectrum. To see the version history and download the bleeding-edge version (at your own risk!), see the project website at code.google.com below.  See the other links for PDF files describing numerical and exact analytical methods for determining instantaneous frequency, some examples of signals processed with this package, and some examples of the ensemble empirical mode decomposition method. 
 License: GPL (>= 3)
 URL: https://code.google.com/p/r-hht/
         http://www.unc.edu/~haksaeng/hht/analytic_instantaneous_freq.pdf
         http://www.unc.edu/~haksaeng/hht/interesting_signals.pdf
         http://www.unc.edu/~haksaeng/hht/eemd_examples.pdf
-Packaged: 2014-05-13 12:23:10 UTC; bowman
+Packaged: 2014-09-23 01:46:02 UTC; bowman
 Maintainer: Daniel C. Bowman <daniel.bowman@unc.edu>
 Author: Daniel C. Bowman [aut, cre],
   Jonathan M. Lees [ctb]
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2014-05-13 14:57:10
+Date/Publication: 2014-09-23 05:48:53
