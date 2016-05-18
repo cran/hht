@@ -1,8 +1,8 @@
-7450e6b2e6a7be1892490c7632d9cd5b *DESCRIPTION
+a35875d9ee0f23cb34ef93fad48257fb *DESCRIPTION
 d32239bcb673463ab874e80d47fae504 *GPL-3
-8b54e5a89fbda3af5e077053d40bec76 *NAMESPACE
-ffcb66a18118e34ffa3ca9a0bb0007c4 *NEWS
-37c113ec578ec8c32f66d51f12c7fa5d *R/empirical_mode_decomposition.R
+0e9ded3d8c675b7610c8d463593f88dc *NAMESPACE
+574b28ba700f5f477b5ab9cf390d104d *NEWS
+1f6c171a1c4847b1229564e730d3b6e3 *R/empirical_mode_decomposition.R
 a6bbd04cfce9988f311fd831b701751c *R/rendering_and_plotting.R
 3ba3049d509a7b8e8e2ed757ffabc2c8 *R/spectral_methods.R
 d77ba98a7236265b2c71a18f3778e32e *data/PortFosterEvent.RData

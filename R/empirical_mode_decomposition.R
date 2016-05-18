@@ -276,9 +276,9 @@ EEMD <-function(sig, tt, noise.amp, trials, nimf, trials.dir = NULL, verbose = T
             }
         }
      
-	averaged.imfs=array(0,nimf*length(sig),dim=c(length(sig),nimf))
-	averaged.noise=array(0,length(sig),dim=c(length(sig),1))
-	averaged.residue=array(0,length(sig),dim=c(length(sig),1))
+	averaged.imfs=array(0, dim=c(length(sig),nimf))
+	averaged.noise=array(0, dim=c(length(sig),1))
+	averaged.residue=array(0, dim=c(length(sig),1))
 	for (j in 1:trials)
 	{
                 if(noise.type == "uniform") {	
@@ -342,9 +342,9 @@ EEMDCompile<-function(trials.dir, trials, nimf)
                 if(counter==1)
                 {
 			siglen=length(emd.result$original.signal)
-		        averaged.imfs=array(0,nimf*siglen,dim=c(siglen,nimf))
-        		averaged.noise=array(0,siglen,dim=c(siglen,1))
-        		averaged.residue=array(0,siglen,dim=c(siglen,1))
+		        averaged.imfs=array(0,dim=c(siglen,nimf))
+        		averaged.noise=array(0,dim=c(siglen,1))
+        		averaged.residue=array(0,dim=c(siglen,1))
 			hinstfreq=array(0,dim=c(length(emd.result$original.signal),nimf,trials))
 			hamp=array(0,dim=c(length(emd.result$original.signal),nimf,trials))
                 }
