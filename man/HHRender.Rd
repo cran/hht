@@ -50,7 +50,7 @@ trials.dir <- "test"
 
 set.seed(628)
 #Run EEMD (this may take some time)
-\dontrun{EEMD(sig, tt, noise.amp, trials, nimf, noise.amp, trials.dir <- trials.dir)}
+\dontrun{EEMD(sig, tt, noise.amp, trials, nimf, noise.amp, trials.dir = trials.dir)}
 
 #Compile the results
 \dontrun{EEMD.result <- EEMDCompile(trials.dir, trials, nimf)}
