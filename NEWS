@@ -16,3 +16,6 @@ Added appropriate citation
 
 2.1.3
 Fixed compatibility issues with R 3.3.0
+
+2.1.4
+Fixed issues with new release of spatstat

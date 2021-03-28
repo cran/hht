@@ -32,7 +32,7 @@ Oftentimes, problems with the EMD are obvious when the IMFs are plotted.
 The \code{fit.line} option can help with this.
 }
 
-\author{Daniel Bowman \email{daniel.bowman@unc.edu}}
+\author{Daniel Bowman \email{danny.c.bowman@gmail.com}}
 
 \seealso{
 \code{\link{HHGramImage}}}

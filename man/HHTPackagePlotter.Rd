@@ -64,6 +64,6 @@ pretty = FALSE, grid = TRUE, colorbar = TRUE, opts = list())
 INTERNAL
 }
 \author{
-Daniel Bowman \email{daniel.bowman@unc.edu}
+Daniel Bowman \email{danny.c.bowman@gmail.com}
 }
 \keyword{hplot}

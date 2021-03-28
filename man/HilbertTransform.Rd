@@ -21,7 +21,7 @@ Creates the real and imaginary parts of a signal.
 \item{asig}{Analytic signal}
 }
 \author{
-Daniel C. Bowman \email{daniel.bowman@unc.edu}
+Daniel C. Bowman \email{danny.c.bowman@gmail.com}
 }
 
 \seealso{

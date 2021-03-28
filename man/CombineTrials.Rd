@@ -22,7 +22,7 @@ This function gathers all trial files in multiple directories, renumbers them, a
 The trial files are saved in the directory specified by \code{out.dir}.
 }
 
-\author{Daniel Bowman \email{daniel.bowman@unc.edu}}
+\author{Daniel Bowman \email{danny.c.bowman@gmail.com}}
 
 \seealso{
 \code{\link{EEMD}}, \code{\link{EEMDCompile}}

@@ -24,12 +24,14 @@ The result can be plotted using \code{\link{HHSpecPlot}}.
 \item{hspec}{A data structure containing the spectrum of each IMF.}
 }
 
-\author{Daniel Bowman \email{daniel.bowman@unc.edu}}
+\author{Daniel Bowman \email{danny.c.bowman@gmail.com}}
 
 \seealso{
 \code{\link{HHRender}}, \code{\link{HHSpecPlot}}
 }
 \examples{
+
+\dontrun{
 data(PortFosterEvent)
 
 emd.result <- Sig2IMF(sig, tt)
@@ -37,6 +39,8 @@ emd.result <- Sig2IMF(sig, tt)
 dfreq <- 0.1
 hspec <- HHSpectrum(emd.result, dfreq)
 HHSpecPlot(hspec, show.fourier = TRUE, scale.fourier = TRUE)
+
+}
 
 }
 \keyword{ts}

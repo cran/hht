@@ -22,7 +22,7 @@ The averaged IMF set from \code{EEMDCompile} can be resifted using \code{\link{E
 \item{EEMD.result}{The averaged IMF set and individual Hilbert spectra of EMD trials generated through EEMD.}
 }
 
-\author{Daniel Bowman \email{daniel.bowman@unc.edu}}
+\author{Daniel Bowman \email{danny.c.bowman@gmail.com}}
 
 \seealso{
 \code{\link{EEMD}}, \code{\link{CombineTrials}}

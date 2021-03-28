@@ -71,7 +71,7 @@ Most noise pixels will only have one trial contributing data.
 The upper limit (10) is a formality - it does not make much sense at this point to put an upper limit on trial intersections unless you are interested in the \bold{noise} component isolated from the signal.
 }
 
-\author{Daniel Bowman \email{daniel.bowman@unc.edu}}
+\author{Daniel Bowman \email{danny.c.bowman@gmail.com}}
 
 \seealso{
 \code{\link{FTGramImage}}, \code{\link{HHRender}}, \code{\link{HHSpecPlot}}

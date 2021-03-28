@@ -62,16 +62,13 @@ Whether to show the difference between the numerical and analytical result.
 Plotting parameters.
 }
 }
-\details{
-For a description of how the exact analytical frequency is derived, see \url{http://www.unc.edu/\%7Ehaksaeng/hht/analytic_instantaneous_freq.pdf}
-}
 \value{
 \item{instfreq$sig}{The time series}
 \item{instfreq$analytic}{The exact instantaneous frequency}
 \item{instfreq$numeric}{The numerically-derived instantaneous frequency from \code{\link{InstantaneousFrequency}}}
 }
 \author{
-Daniel C. Bowman \email{daniel.bowman@unc.edu}
+Daniel C. Bowman \email{danny.c.bowman@gmail.com}
 }
 
 \examples{

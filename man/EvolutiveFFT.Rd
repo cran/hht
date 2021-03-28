@@ -45,7 +45,7 @@ Jonathan M. Lees (2012). RSEIS: Seismic Time Series Analysis Tools. R
 package version 3.1-3.
 }
 \author{
-Daniel C. Bowman \email{daniel.bowman@unc.edu}, Jonathan M. Lees
+Daniel C. Bowman \email{danny.c.bowman@gmail.com}, Jonathan M. Lees
 }
 \note{
 This is a modification of the \code{evolfft} function in the \code{RSEIS} package.

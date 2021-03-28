@@ -46,7 +46,7 @@ Another solution is to accept the sub-IMF with the most variance, as that probab
 \item{resift.result}{The resifted results of the averaged IMF set and the individual Hilbert spectra of each resifted IMF.}
 }
 
-\author{Daniel Bowman \email{daniel.bowman@unc.edu}}
+\author{Daniel Bowman \email{danny.c.bowman@gmail.com}}
 
 \seealso{
 \code{\link{EEMD}}, \code{\link{EEMDCompile}}

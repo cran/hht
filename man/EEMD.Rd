@@ -59,7 +59,7 @@ Wu, Z. A. and Huang, N. E. (2009) Ensemble empirical mode decomposition: {A} noi
 \note{Previous versions of this function used a uniform random noise distribution (i.e. \code{runif}) to generate the noise time series.
 The default noise time series is now Gaussian in accordance with existing EEMD literature.}
 
-\author{Daniel Bowman \email{daniel.bowman@unc.edu}}
+\author{Daniel Bowman \email{danny.c.bowman@gmail.com}}
 
 \seealso{
 \code{\link{Sig2IMF}}, \code{\link{CombineTrials}}, \code{\link{EEMDCompile}}, \code{\link{PlotIMFs}}.

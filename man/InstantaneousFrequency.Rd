@@ -30,7 +30,7 @@ How the instantaneous frequency is calculated.
 \item{instfreq}{Instataneous frequency in 1/time}
 }
 \author{
-Daniel C. Bowman \email{daniel.bowman@unc.edu}
+Daniel C. Bowman \email{danny.c.bowman@gmail.com}
 }
 \note{
 

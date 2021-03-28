@@ -926,8 +926,8 @@ HHTPackagePlotter <- function(img, trace, amp.span, img.x.lab, img.y.lab, blur =
                 bleed <- TRUE
             }
         }
-        tmp.im <- spatstat::as.im(list(x = image.xvec, y = image.yvec, z = as.matrix(img$z)))
-        z <- t(spatstat::blur(tmp.im, sigma = blur$sigma, bleed = bleed)$v)
+        tmp.im <- spatstat.geom::as.im(list(x = image.xvec, y = image.yvec, z = as.matrix(img$z)))
+        z <- t(spatstat.core::blur(tmp.im, sigma = blur$sigma, bleed = bleed)$v)
     } else {
         z <- img$z
     }

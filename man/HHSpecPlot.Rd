@@ -41,7 +41,7 @@ This function plots the Hilbert periodogram of a signal, with options to show pe
 You can also plot a simple Fourier periodogram for comparison.
 }
 
-\author{Daniel Bowman \email{daniel.bowman@unc.edu}}
+\author{Daniel Bowman \email{danny.c.bowman@gmail.com}}
 
 \seealso{
 \code{\link{HHSpectrum}}, \code{\link{HHGramImage}}}

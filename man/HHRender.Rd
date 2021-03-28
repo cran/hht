@@ -35,7 +35,7 @@ See options for \code{\link{HHGramImage}} for ways to plot data based on signal 
 \item{hgram}{A data structure containing the spectrogram image and other information required by \code{\link{HHGramImage}}.}
 }
 
-\author{Daniel Bowman \email{daniel.bowman@unc.edu}}
+\author{Daniel Bowman \email{danny.c.bowman@gmail.com}}
 
 \seealso{
 \code{\link{EEMDCompile}}, \code{\link{HHGramImage}}

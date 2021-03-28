@@ -50,7 +50,7 @@ Torres, M. E., Colominas, M. A., Schlotthauer, G., Flandrin, P. (2011).  A compl
 \emph{2011 IEEE International Conference on Acoustics, Speech, and Signal Processing}, pp.4144-4147, doi: 10.1109/ICASSP.2011.5947265.
 }
 
-\author{Daniel Bowman \email{daniel.bowman@unc.edu}}
+\author{Daniel Bowman \email{danny.c.bowman@gmail.com}}
 
 \seealso{
 \code{\link{EEMD}}, \code{\link{Sig2IMF}}, \code{\link{PlotIMFs}}.
