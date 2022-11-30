@@ -1,21 +1,41 @@
-NEWS for hht
+\name{NEWS}
+\name{NEWS for hht}
+\encoding{UTF-8}
 
-2.0-1
-The EEMD function now uses a Gaussian noise time series by default.
+\section{2.1.5}
+\itemize{
+    \item Fixed more issues with new release of spatstat.
+}
+
+\section{2.1.4}
+\itemize{
+    \item Fixed issues with new release of spatstat 
+}
+
+\section{2.1.3}
+\itemize{
+     \item Fixed compatibility issues with R 3.3.0   
+}
+
+\section{2.1.2}
+\itemize{
+   \item Added appropriate citation
+}
+
+\section{2.1.1}
+\itemize{
+   \item Added the Complete Ensemble Empirical Mode Decomposition (CEEMD) algorithm
+}
+
+\section{2.0.2}
+\itemize{
+   \item Fixed a bug that threw errors with large arrays were initialized.
+}
+
+\section{2.0.1}
+\itemize{
+   \item The EEMD function now uses a Gaussian noise time series by default.
 Originally it used a uniform random noise distribution.
 This original functionality is still available by setting noise.type = "uniform."
+}
 
-2.0-2
-Fixed a bug that threw errors with large arrays were initialized.
-
-2.1.1 
-Added the Complete Ensemble Empirical Mode Decomposition (CEEMD) algorithm
-
-2.1.2
-Added appropriate citation
-
-2.1.3
-Fixed compatibility issues with R 3.3.0
-
-2.1.4
-Fixed issues with new release of spatstat
