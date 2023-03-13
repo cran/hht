@@ -7,7 +7,7 @@ It uses the function \code{\link{EvolutiveFFT}} to generate a spectrogram, then 
 }
 \usage{
 FTGramImage(sig, dt, ft, time.span = NULL, freq.span = NULL, 
-     amp.span = NULL, blur = NULL, taper=0.05, scaling = "none", grid=TRUE, 
+     amp.span = NULL, taper=0.05, scaling = "none", grid=TRUE, 
     colorbar=TRUE, backcol=c(0, 0, 0), colormap=NULL, pretty=FALSE, ...)
 }
 \arguments{
@@ -21,10 +21,6 @@ FTGramImage(sig, dt, ft, time.span = NULL, freq.span = NULL,
 \item{time.span}{Time span to render spectrogram over.  \code{NULL} will draw the spectrogram over the entire signal.}
 \item{freq.span}{Frequency span to render spectrogram over.  \code{NULL} plots everything up to the Nyquist frequency.}
 \item{amp.span}{Amplitude range to plot.  \code{NULL} plots everything.}
-\item{blur}{Apply a Gaussian smoother.  Default \code{NULL} - no smoothing}.
-\itemize{
-    \item{\code{blur$sigma} is a scalar or two-element vector giving the standard deviation of the Gaussian kernel.}
-    \item{\code{blur$bleed} determines whether to allow values to bleed out of the domain of the image.  Default \code{TRUE}}}
 \item{taper}{Taper value to use for spectrogram (default is 0.05), see \code{spec.taper} in the \code{base} package.}
 \item{scaling}{determines whether to apply logarithmic (log), or square root (sqrt) scaling to the amplitude data}
 \item{grid}{Boolean - whether to display grid lines or not}

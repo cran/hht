@@ -4,5 +4,3 @@ importFrom("graphics", "axis", "image", "legend", "lines", "plot",
              "rect", "segments", "text")
 importFrom("stats", "fft", "mvfft", "rnorm", "runif", "spec.taper",
              "var")
-import(spatstat.geom)
-import(spatstat.core)

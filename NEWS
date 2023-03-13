@@ -2,6 +2,13 @@
 \name{NEWS for hht}
 \encoding{UTF-8}
 
+\section{2.1.6}
+\itemize{
+   \item Despite thinking I had fixed all the spatstat issues, my package got archived.
+    Removed all references to spatstat.  
+    Small sigh.
+}
+
 \section{2.1.5}
 \itemize{
     \item Fixed more issues with new release of spatstat.
